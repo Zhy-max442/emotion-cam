@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>微笑 / 伤心识别</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>实时表情识别</h1>
+      <p class="sub">对着摄像头，识别你是在<strong>微笑</strong>还是<strong>伤心</strong></p>
+    </header>
+
+    <main>
+      <div class="stage">
+        <video id="video" autoplay muted playsinline></video>
+        <canvas id="overlay"></canvas>
+        <div id="badge" class="badge idle">等待摄像头…</div>
+      </div>
+
+      <aside class="panel">
+        <div class="stat">
+          <span class="label">当前情绪</span>
+          <span id="emotion" class="value">—</span>
+        </div>
+        <div class="stat">
+          <span class="label">置信度</span>
+          <span id="conf" class="value">—</span>
+        </div>
+        <div class="bars" id="bars"></div>
+        <button id="startBtn" class="btn primary">开启摄像头</button>
+        <p class="hint">请允许浏览器使用摄像头。建议正脸、光线充足。</p>
+        <p id="status" class="status"></p>
+      </aside>
+    </main>
+  </div>
+
+  <!-- face-api.js：浏览器端人脸 + 表情模型 -->
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script defer src="app.js"></script>
+</body>
+</html>

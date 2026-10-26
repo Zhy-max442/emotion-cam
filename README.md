@@ -1,54 +1,32 @@
-# Emotion Cam · 实时微笑 / 伤心识别
+# Emotion Cam · 网页版微笑 / 伤心识别
 
-用电脑摄像头做人脸情绪识别，重点判断 **微笑（happy）** 与 **伤心（sad）**。
+**直接用浏览器**，打开摄像头识别微笑或伤心。无需安装软件。
 
-## 两个版本
+## 在线使用
 
-| 文件 | 方案 | 依赖 |
-|------|------|------|
-| `main.py` | **高级**：DeepFace 深度学习 7 类情绪 + 时间平滑 + 置信度条 | TensorFlow / DeepFace（首次下模型） |
-| `main_lite.py` | **轻量**：OpenCV Haar 笑脸检测 + 嘴部启发式 | 仅 opencv-python、numpy |
+GitHub Pages：  
+https://zhy-max442.github.io/emotion-cam/
 
-## 安装与运行
+（若打不开，用仓库里的 `web/index.html` 本地打开，或见下方本地预览。）
+
+## 本地预览
 
 ```bash
-git clone https://github.com/Zhy-max442/emotion-cam.git
 cd emotion-cam
-python -m venv .venv
+# 任意静态服务器均可，例如：
+python -m http.server 8080
 ```
 
-**Windows**
+浏览器打开 http://localhost:8080/web/
 
-```bash
-.venv\Scripts\activate
-pip install -r requirements.txt
-python main.py
-```
+## 说明
 
-若高级版安装太慢，可先跑轻量版：
+- 技术：`getUserMedia` + [face-api.js](https://github.com/justadudewhohacks/face-api.js)（浏览器端深度学习）
+- 点「开启摄像头」并允许权限；正脸、光线好效果更稳
+- 仓库里仍保留旧的 Python 桌面脚本（`main.py` / `main_lite.py`），可选
 
-```bash
-pip install opencv-python numpy
-python main_lite.py
-```
+## 文件
 
-## 操作
-
-| 按键 | 作用 |
-|------|------|
-| `q` / `Esc` | 退出 |
-| `s` | 截图到 `captures/` |
-| `f` | 仅高级版：左右镜像开关 |
-
-## 配置
-
-在 `main.py` 顶部可改：
-
-- `CAMERA_INDEX`：摄像头编号（默认 `0`）
-- `ANALYZE_EVERY_N`：隔几帧推理一次（越大越流畅、越不跟手）
-
-## 注意
-
-- Windows 请允许应用访问摄像头。
-- 正脸、光线均匀时效果更好。
-- 高级版首次运行需联网下载模型。
+- `web/index.html` / `web/app.js` / `web/style.css` — 网页版（推荐）
+- `main.py` — 桌面 DeepFace 版
+- `main_lite.py` — 桌面 OpenCV 轻量版
